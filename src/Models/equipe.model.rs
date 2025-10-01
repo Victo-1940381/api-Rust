@@ -11,5 +11,10 @@ use std::net::SocketAddr;
 #[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
 struct Equipe {
     id: i32,
-    
+    nom: String,
 }
+#[derive(Debug,Deserialize)]
+struct CreateEquipe {
+    nom:String,
+}
+
