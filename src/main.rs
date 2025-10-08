@@ -3,11 +3,11 @@ use actix_web::middleware::Logger;
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use serde_json::json;
 
-#[get("/api/healthchecker")]
+#[get("/api")]
 async fn health_checker_handler() -> impl Responder {
-    const MESSAGE: &str = "Build Simple CRUD API with Rust, SQLX, Postgres,and Actix Web";
+    const MESSAGE: &str = "Bienvenue sur l'api RESTFUL codé en Rust de ludovic ";
 
-    HttpResponse::Ok().json(json!({"status": "success","message": MESSAGE}))
+    HttpResponse::Ok().json(json!({"status": "réussi","message": MESSAGE}))
 }
 #[actix_web::main]
 async fn main() -> std::io::Result<()> { 
