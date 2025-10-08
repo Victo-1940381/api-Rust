@@ -4,13 +4,15 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+actix-web = "4.11.0"
 axum = "0.8.6"
-chrono = "0.4.42"
+axum-server = "0.7.2"
+chrono = { version = "0.4.42", features = ["serde"] }
 dotenvy = "0.15.7"
-log = "0.4.28"
-postgres = "0.19.10"
-pretty_env_logger = "0.5.0"
-serde = "1.0.228"
-sqlx = { version = "0.8.6", features = ["runtime-tokio", "tls-native-tls", "postgres"] }
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.145"
+server = "0.0.0"
+sqlx = { version = "0.8.6", features = ["runtime-tokio", "tls-native-tls", "postgres", "runtime-async-std-native-tls", "mysql", "chrono", "uuid"] }
 tokio = { version = "1.47.1", features = ["full"] }
-warp = "0.4.2"
+tower-http = { version = "0.6.6", features = ["cors"] }
+uuid = { version = "1.18.1", features = ["serde", "v4"] }
