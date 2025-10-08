@@ -1,20 +1,11 @@
-use axum::{
-    extract::{Path, State},
-    http::StatusCode,
-    response::IntoResponse,
-    routing::{get, post},
-    Json, Router,
-};
 use serde::{Deserialize, Serialize};
-use sqlx::{postgres::PgPoolOptions, PgPool};
-use std::net::SocketAddr;
-#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
-struct Equipe {
-    id: i32,
-    nom: String,
+use sqlx::FromRow;
+
+#[derive(Debug, FromRow, Deserialize, Serialize)]
+#[allow(non_snake_case)]
+pub struct EquipeModel {
+    pub id: i32,
+    pub nom: String,
 }
-#[derive(Debug,Deserialize)]
-struct CreateEquipe {
-    nom:String,
-}
+
 
