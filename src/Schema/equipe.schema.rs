@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Debug)]
 pub struct ParamOptions{
-    pub id: int,
+    pub id: i32,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -12,5 +12,5 @@ pub struct CreateEquipeSchema{
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct UpdateEquipeSchema{
-    pub nom: Option<String>,
+    pub nom: String,
 }

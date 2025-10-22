@@ -7,7 +7,7 @@ pub struct ProjetsModel {
     pub id: i32,
     pub nom: String,
     pub date_debut: Date,
-    pub date_fin: Date,
+    pub date_fin: Option<Date>,
     pub fini: Boolean,
     pub equiperesponsables: i32,
 }
