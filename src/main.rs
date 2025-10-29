@@ -8,8 +8,6 @@ use actix_web::{http::header, web, App, HttpServer};
 use dotenv::dotenv;
 use sqlx::{postgres::PgPoolOptions, Pool, Postgres};
 
-use crate::handler::equipe_handler;
-
 #[actix_web::main]
 async fn main() -> std::io::Result<()> { 
     if std::env::var_os("RUST_LOG").is_none(){

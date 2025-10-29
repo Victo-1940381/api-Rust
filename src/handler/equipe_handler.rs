@@ -33,3 +33,29 @@ pub async fn equipe_list_handler(
     HttpResponse::Ok().json(json_response)
 }
 
+#[get("/equipe/{id}")]
+async fn get_equipe_handler(
+    path: web::Path<i32>,
+    data: web::Data<AppState>,
+) -> impl Responder {
+    let equipe_id = path.into_inner();
+    let query_result = sqlx::query_as!(EquipeModel, "SELECT * FROM equipe WHERE id = $1", equipe_id)
+    .fetch_one(&data.db)
+    .await;
+match query_result{
+    Ok(equipe) =>{
+        let equipe_response = serde_json::json!({"status":"success","data":serde_json::json!({
+            "equipe":equipe
+        })});
+
+        return HttpResponse::Ok().json(equipe_response);
+    }
+    Err(_) =>{
+        let message = format!("equipe avec id: {} pas trouver",equipe_id);
+        return HttpResponse::NotFound()
+            .json(serde_json::json!({"status":"fail","message": message}));
+    }
+
+}
+}
+
