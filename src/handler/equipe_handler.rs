@@ -33,9 +33,3 @@ pub async fn equipe_list_handler(
     HttpResponse::Ok().json(json_response)
 }
 
-pub fn config(conf: &mut web::ServiceConfig){
-    let scope = web::scope("/api")
-        .service(equipe_list_handler);
-
-    conf.service(scope);
-}
