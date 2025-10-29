@@ -1,9 +1,9 @@
 use crate::{
-    model::EquipeModel,
-    schema::{CreateEquipeSchema,UpdateEquipeSchema},
-    AppState,
+    models::equipe_model::EquipeModel,
+    schema::equipe_schema::{CreateEquipeSchema,UpdateEquipeSchema},
+    handler::appState::AppState,
 };
-use actix_web::{delete,get,patch,post, web, HttpResponce, Responder};
+use actix_web::{delete,get,patch,post, web, HttpResponse, Responder};
 use chrono::prelude::*;
 use serde_json::json;
 
@@ -20,7 +20,7 @@ pub async fn equipe_list_handler(
     .await;
     if query_result.is_err(){
         let message = "quelque chose est arrive lors du fetch des donner";
-        return HttpResponce::InternalServerError()
+        return HttpResponse::InternalServerError()
             .json(json!({"status": "error","message": message}));
 
     }
@@ -30,7 +30,7 @@ pub async fn equipe_list_handler(
         "results": equipes.len(),
         "equipes": equipes
     });
-    HttpResponce::Ok().json(json_response)
+    HttpResponse::Ok().json(json_response)
 }
 
 pub fn config(conf: &mut web::ServiceConfig){

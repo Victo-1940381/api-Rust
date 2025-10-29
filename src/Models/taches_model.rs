@@ -6,7 +6,12 @@ use sqlx::FromRow;
 pub struct TachesModel {
     pub id: i32,
     pub titre: String,
-    pub description: Text,
+    pub description: String,
     pub id_projet: i32,
-    pub terminer: Boolean,
+    pub terminer: bool,
+}
+impl TachesModel {
+    pub fn new(id: i32, titre:String,description:String,id_projet:i32,terminer:bool) -> Self {
+        TachesModel { id, titre, description, id_projet, terminer }
+    }
 }

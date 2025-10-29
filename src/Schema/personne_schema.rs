@@ -8,15 +8,15 @@ pub struct ParamOptions{
 pub struct CreatePersonneSchema{
     pub nom: String,
     pub prenom: String,
-    pub age:Int,
+    pub age:i32,
     pub equipe: i32,
-    pub is_chef: Boolean,
+    pub is_chef: bool,
 }
 #[derive(Serialize,Deserialize,Debug)]
 pub struct UpdatePersonneSchema{
     pub nom: String,
     pub prenom: String,
-    pub age:Int,
+    pub age:i32,
     pub equipe: i32,
-    pub is_chef: Boolean,
+    pub is_chef: bool,
 }

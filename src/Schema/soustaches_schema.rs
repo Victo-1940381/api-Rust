@@ -8,21 +8,21 @@ pub struct ParamOptions{
 #[derive(Serialize,Deserialize,Debug)]
 pub struct CreatesoustacheSchema{
     pub titre: String,
-    pub description: Text,
+    pub description: String,
     pub responsable: i32,
     pub id_tache: i32,
-    pub terminer: Boolean,
+    pub terminer: bool,
 }
 #[derive(Serialize,Deserialize,Debug)]
 pub struct updatesoustacheSchema{
     pub titre: String,
-    pub description: Text,
+    pub description: String,
     pub responsable: i32,
     pub id_tache: i32,
-    pub terminer: Boolean,
+    pub terminer: bool,
 }
 #[derive(Serialize,Deserialize,Debug)]
 pub struct updatesoustacheEtatSchema{
     pub id: i32,
-    pub terminer:Boolean,
+    pub terminer:bool,
 }
