@@ -57,30 +57,33 @@ match query_result{
 
 }
 }
-/* 
 #[post("/personne/ajout")]
-async fn create_equipe_handler(
-    body: web::Json<CreateEquipeSchema>,
+async fn create_personnne_handler(
+    body: web::Json<CreatePersonneSchema>,
     data: web::Data<AppState>,
 )
  -> impl Responder {
     let query_result = sqlx::query_as!(
-    EquipeModel,
-    "INSERT INTO equipe (nom) values ($1) RETURNING *",
-    body.nom.to_string()
+    PersonnesModel,
+    "INSERT INTO personnes(nom,prenom,age,equipe,is_chef) values ($1,$2,$3,$4,$5) RETURNING *",
+    body.nom.to_string(),
+    body.prenom.to_string(),
+    body.age,
+    body.equipe,
+    body.is_chef,
 )
 .fetch_one(&data.db)
 .await;
 match query_result {
-    Ok(equipe) => {
-        let equipe_response = serde_json::json!({"status": "reussi", "data": serde_json::json!({"equipe":equipe})});
+    Ok(personne) => {
+        let personne_response = serde_json::json!({"status": "reussi", "data": serde_json::json!({"personne":personne})});
 
-        return HttpResponse::Ok().json(equipe_response);
+        return HttpResponse::Ok().json(personne_response);
     }
     Err(e) =>{
         if e.to_string().contains("duplicate key value violates unique constraint"){
             return HttpResponse::BadRequest()
-            .json(serde_json::json!({"status":"echec", "message":"un equipe avec ce nom existe deja"})) 
+            .json(serde_json::json!({"status":"echec", "message":"cet personne existe deja"})) 
         }
       
 
@@ -89,39 +92,44 @@ match query_result {
     }
 }
 }
+ 
 #[patch("/personne/modif/{id}")]
-async fn edit_equipe_handler(
+async fn edit_personne_handler(
     path: web::Path<i32>,
-    body: web::Json<UpdateEquipeSchema>,
+    body: web::Json<UpdatePersonneSchema>,
     data: web::Data<AppState>,
 ) -> impl Responder {
-    let equipe_id = path.into_inner();
-    let query_result = sqlx::query_as!(EquipeModel, "select * from equipe where id = $1", equipe_id)
+    let personne_id = path.into_inner();
+    let query_result = sqlx::query_as!(PersonnesModel, "select * from personnes where id = $1", personne_id)
         .fetch_one(&data.db)
         .await;
 
     if query_result.is_err() {
-        let message = format!("equipe avec l'id : {} pas trouvé", equipe_id);
+        let message = format!("la personne avec l'id : {}  n'existe pas", personne_id);
         return HttpResponse::NotFound()
             .json(serde_json::json!({"status": "echec", "message": message}));  
     }
-    let equipe = query_result.unwrap();
+    let personne = query_result.unwrap();
 
     let query_result = sqlx::query_as!(
-        EquipeModel,
-        "update equipe set nom = $1 where id = $2 returning *",
-        body.nom.to_owned().unwrap_or(equipe.nom),
-        equipe_id
+        PersonnesModel,
+        "update personnes set nom = $1, prenom =$2, age = $3, equipe = $4, is_chef = $5  where id = $6 returning *",
+        body.nom.to_owned().unwrap_or(personne.nom),
+        body.prenom.to_owned().unwrap_or(personne.prenom),
+        body.age.to_owned().unwrap_or(personne.age),
+        body.equipe.to_owned().unwrap_or(personne.equipe),
+        body.is_chef.to_owned().unwrap_or(personne.is_chef),
+        personne_id
     )
     .fetch_one(&data.db)
     .await;
 
 match query_result{
-    Ok(equipe) =>{
-        let equipe_response = serde_json::json!({"status":"reussi", "data": serde_json::json!({
-            "equipe":equipe
+    Ok(personne) =>{
+        let personne_response = serde_json::json!({"status":"reussi", "data": serde_json::json!({
+            "personne":personne
         })});
-        return HttpResponse::Ok().json(equipe_response);
+        return HttpResponse::Ok().json(personne_response);
     }
     Err(err) =>{
         let message = format!("Erreur: {:?}", err);
@@ -130,27 +138,27 @@ match query_result{
     }
 }
 }
+
 #[delete("/personne/delete/{id}")]
-async fn delete_equipe_handler(
+async fn delete_personne_handler(
     path: web::Path<i32>,
     data: web::Data<AppState>,
 ) -> impl Responder {
-    let equipe_id = path.into_inner();
-    let rows_affected = sqlx::query!("delete from equipe where id = $1", equipe_id)
+    let personne_id = path.into_inner();
+    let rows_affected = sqlx::query!("delete from personnes where id = $1", personne_id)
         .execute(&data.db)
         .await
         .unwrap()
         .rows_affected();
 
 if rows_affected ==0 {
-    let message = format!("l'equipe avec l'id: {} pas trouvé", equipe_id);
+    let message = format!("la personne avec l'id: {}  n'a pas été trouvé", personne_id);
     return HttpResponse::NotFound().json(json!({"status":"echec","message":message}));  
 }
 else{
-    let message = format!("l'equipe avec l'id: {} supprimé", equipe_id);
+    let message = format!("la personne avec l'id: {}  a été supprimer", personne_id);
     return HttpResponse::Ok().json(json!({"status":"réussi","message":message}));  
 }
 }
 
 
-*/

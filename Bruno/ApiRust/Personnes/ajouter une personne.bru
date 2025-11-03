@@ -1,0 +1,26 @@
+meta {
+  name: ajouter une personne
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/personne/ajout
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nom":"Picard",
+    "prenom": "Bob",
+    "age":35,
+    "equipe":3,
+    "is_chef":true
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

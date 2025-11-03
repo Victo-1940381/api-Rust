@@ -8,6 +8,9 @@ pub fn config(conf: &mut web::ServiceConfig){
         .service(equipe_handler::edit_equipe_handler)
         .service(equipe_handler::delete_equipe_handler)
         .service(personne_handler::personne_list_handler)
-        .service(personne_handler::get_personne_handler);
+        .service(personne_handler::get_personne_handler)
+        .service(personne_handler::create_personnne_handler)
+        .service(personne_handler::edit_personne_handler)
+        .service(personne_handler::delete_personne_handler);
     conf.service(scope);
 }
