@@ -58,4 +58,33 @@ match query_result{
 
 }
 }
+#[post("/equipe/ajout")]
+async fn create_equipe_handler(
+    body: web::Json<CreateEquipeSchema>,
+    data: web::Data<AppState>,
+)
+ -> impl Responder {
+    let query_result = sqlx::query_as!(
+    EquipeModel,
+    "INSERT INTO equipe (nom) values ($1) RETURNING *",
+    body.nom.to_string()
+)
+.fetch_one(&data.db)
+.await;
+match query_result {
+    Ok(equipe) => {
+        let equipe_response = serde_json::json!({"status": "reussi", "data": serde_json::json!({"equipe":equipe})});
 
+        return HttpResponse::Ok().json(equipe_response);
+    }
+    Err(e) =>{
+        if e.to_string().contains("duplicate key value violates unique constraint"){
+            return HttpResponse::BadRequest()
+            .json(serde_json::json!({"status":"echec", "message":"un equipe avec ce nom existe deja"})) 
+        }
+
+        return HttpResponse::InternalServerError()
+        .json(serde_json::json!({"status":"erreur","message": format!("{:?}", e)}));
+    }
+}
+}
