@@ -4,6 +4,7 @@ pub fn config(conf: &mut web::ServiceConfig){
     let scope = web::scope("/api")
         .service(equipe_handler::equipe_list_handler)
         .service(equipe_handler::get_equipe_handler)
-        .service(equipe_handler::create_equipe_handler);
+        .service(equipe_handler::create_equipe_handler)
+        .service(equipe_handler::edit_equipe_handler);
     conf.service(scope);
 }
