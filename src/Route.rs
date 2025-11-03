@@ -5,6 +5,7 @@ pub fn config(conf: &mut web::ServiceConfig){
         .service(equipe_handler::equipe_list_handler)
         .service(equipe_handler::get_equipe_handler)
         .service(equipe_handler::create_equipe_handler)
-        .service(equipe_handler::edit_equipe_handler);
+        .service(equipe_handler::edit_equipe_handler)
+        .service(equipe_handler::delete_equipe_handler);
     conf.service(scope);
 }

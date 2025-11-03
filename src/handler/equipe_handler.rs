@@ -130,3 +130,24 @@ match query_result{
     }
 }
 }
+#[delete("/equipe/delete/{id}")]
+async fn delete_equipe_handler(
+    path: web::Path<i32>,
+    data: web::Data<AppState>,
+) -> impl Responder {
+    let equipe_id = path.into_inner();
+    let rows_affected = sqlx::query!("delete from equipe where id = $1", equipe_id)
+        .execute(&data.db)
+        .await
+        .unwrap()
+        .rows_affected();
+
+if rows_affected ==0 {
+    let message = format!("l'equipe avec l'id: {} pas trouvé", equipe_id);
+    return HttpResponse::NotFound().json(json!({"status":"echec","message":message}));  
+}
+else{
+    let message = format!("l'equipe avec l'id: {} supprimé", equipe_id);
+    return HttpResponse::Ok().json(json!({"status":"réussi","message":message}));  
+}
+}
