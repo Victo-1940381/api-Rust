@@ -15,14 +15,13 @@ pub struct CreateProjetSchema{
 }
 #[derive(Serialize,Deserialize,Debug)]
 pub struct UpdateProjetSchema{
-    pub nom: String,
-    pub date_debut:NaiveDate,
+    pub nom: Option<String>,
+    pub date_debut:Option<NaiveDate>,
     pub date_fin: Option<NaiveDate>,
-    pub fini:bool,
-    pub equiperesponsables:i32,
+    pub fini:Option<bool>,
+    pub equiperesponsables:Option<i32>,
 }
 #[derive(Serialize,Deserialize,Debug)]
 pub struct UpdateProjetEtatSchema{
-    pub id: i32,
-    pub fini:bool,
+    pub fini:Option<bool>,
 }

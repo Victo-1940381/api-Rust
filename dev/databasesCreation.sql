@@ -1,7 +1,9 @@
+
+
 drop table if exists public.equipe cascade;
 create table public.equipe(
 id SERIAL PRIMARY KEY,
-nom VARCHAR(255) not null
+nom VARCHAR(255) not null UNIQUE
 );
 drop table if exists public.personnes cascade;
 create table public.personnes(
@@ -15,7 +17,7 @@ is_chef bool not null
 drop  table  if exists public.projets cascade;
 create table public.projets(
  id SERIAL PRIMARY KEY,
- nom VARCHAR(255) not null,
+ nom VARCHAR(255) not null UNIQUE,
  date_Debut date not null,
  date_de_fin date constraint date_plus_grande check(date_de_fin > date_Debut),
  fini bool not null,

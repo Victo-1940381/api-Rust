@@ -12,5 +12,5 @@ pub struct CreateEquipeSchema{
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct UpdateEquipeSchema{
-    pub nom: String,
+    pub nom: Option<String>,
 }

@@ -1,0 +1,22 @@
+meta {
+  name: ajouter une equipe
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/equipe/ajout
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nom":"les blaireau de st-therese"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
