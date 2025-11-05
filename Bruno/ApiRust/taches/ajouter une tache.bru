@@ -1,0 +1,25 @@
+meta {
+  name: ajouter une tache
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/tache/ajout
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "titre":"tache test pour bruno 2",
+    "description":"ceci est une deuxieme tache de test pour test mon api",
+    "id_projet":4,
+    "terminer":false
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

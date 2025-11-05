@@ -50,7 +50,7 @@ match query_result{
         return HttpResponse::Ok().json(personne_response);
     }
     Err(_) =>{
-        let message = format!("equipe avec id: {} pas trouver",personne_id);
+        let message = format!("personne avec id: {} pas trouver",personne_id);
         return HttpResponse::NotFound()
             .json(serde_json::json!({"status":"echec","message": message}));
     }

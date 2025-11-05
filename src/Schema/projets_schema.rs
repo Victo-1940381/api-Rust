@@ -9,7 +9,7 @@ pub struct CreateProjetSchema{
     pub nom: String,
     pub date_debut:NaiveDate,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub date_fin: Option<NaiveDate>,
+    pub date_de_fin: Option<NaiveDate>,
     pub fini:bool,
     pub equiperesponsables:i32,
 }
@@ -17,7 +17,7 @@ pub struct CreateProjetSchema{
 pub struct UpdateProjetSchema{
     pub nom: Option<String>,
     pub date_debut:Option<NaiveDate>,
-    pub date_fin: Option<NaiveDate>,
+    pub date_de_fin: Option<NaiveDate>,
     pub fini:Option<bool>,
     pub equiperesponsables:Option<i32>,
 }

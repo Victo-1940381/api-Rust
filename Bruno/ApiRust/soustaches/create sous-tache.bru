@@ -1,0 +1,26 @@
+meta {
+  name: create sous-tache
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/soustache/ajout
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "titre":"sous-tache a delete",
+    "description":"ceci est une sous-tache de test pour test mon api a supprimer",
+    "responsable":10,
+    "id_tache":7,
+    "terminer":false
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

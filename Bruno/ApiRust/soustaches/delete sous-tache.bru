@@ -1,0 +1,16 @@
+meta {
+  name: delete sous-tache
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:3000/api/soustache/delete/18
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
