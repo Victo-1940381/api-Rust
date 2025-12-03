@@ -11,7 +11,8 @@ id SERIAL PRIMARY KEY,
 nom VARCHAR(255) not null,
 prenom VARCHAR(255) not null,
 age INTEGER  not null constraint age_positif check (age >= 0),
-equipe Serial references public.equipe(id),
+
+equipe Serial references public.equipe(id) on delete set null,
 is_chef bool not null
 );
 drop  table  if exists public.projets cascade;
@@ -21,7 +22,7 @@ create table public.projets(
  date_Debut date not null,
  date_de_fin date constraint date_plus_grande check(date_de_fin > date_Debut),
  fini bool not null,
- equipeResponsables Serial references public.equipe(id)
+ equipeResponsables Serial references public.equipe(id) on delete set null
 );
 
 
@@ -30,7 +31,7 @@ create table public.taches(
 id SERIAL primary key,
 titre varchar(255) not null,
 description Text not null,
-id_projet Serial references public.projets(id),
+id_projet Serial references public.projets(id) on delete set null,
 terminer bool not null
 );
 drop table if exists public.soustaches cascade;
@@ -38,8 +39,8 @@ create table public.soustaches(
 id SERIAL primary key,
 titre VARCHAR(255) not null,
 description Text not null,
-responsable Serial references public.personnes(id),
-id_tache Serial references public.taches(id),
+responsable Serial references public.personnes(id) on delete set null,
+id_tache Serial references public.taches(id) on delete set null,
 terminer bool not null
 );
 insert into public.equipe (nom)
